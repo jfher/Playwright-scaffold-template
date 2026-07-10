@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "Running pre-push validation..."
+
+npm run test
+
+RESULT=$?
+
+if [ $RESULT -ne 0 ]; then
+  echo "Smoke tests failed."
+  exit $RESULT
+fi
+
+echo "Smoke tests passed."
